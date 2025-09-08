@@ -80,21 +80,11 @@ const MomentsRoute = ({ data }: { data: GridItem[] }) => {
             height: item.height,
           }}
         >
-          <Animated.View
-            style={{
-              flex: 1,
-              borderRadius: 16,
-              overflow: 'hidden',
-              backgroundColor: '#e0e7ff',
-            }}
-            sharedTransitionTag={`moment-${item.id}`}
-          >
-            <Animated.Image
-              source={{ uri: item.imageUrl }}
-              style={{ flex: 1 }}
-              resizeMode="cover"
-            />
-          </Animated.View>
+          <Animated.Image
+            source={{ uri: item.imageUrl }}
+            resizeMode="cover"
+            className="flex-1 rounded-2xl overflow-hidden"
+          />
           <View className="absolute bottom-2 left-2 bg-purple-600 px-2 py-1 rounded">
             <Text className="text-white text-xs font-medium">Moment</Text>
           </View>
@@ -130,21 +120,12 @@ const DeckRoute = ({ data }: { data: GridItem[] }) => {
             height: item.height,
           }}
         >
-          <Animated.View
-            style={{
-              flex: 1,
-              borderRadius: 16,
-              overflow: 'hidden',
-              backgroundColor: '#dbeafe',
-            }}
-            sharedTransitionTag={`moment-${item.id}`}
-          >
-            <Animated.Image
-              source={{ uri: item.imageUrl }}
-              style={{ flex: 1 }}
-              resizeMode="cover"
-            />
-          </Animated.View>
+          <Animated.Image
+            source={{ uri: item.imageUrl }}
+            style={{ flex: 1 }}
+            className="flex-1 rounded-2xl overflow-hidden"
+            resizeMode="cover"
+          />
           <View className="absolute bottom-2 left-2 bg-blue-600 px-2 py-1 rounded">
             <Text className="text-white text-xs font-medium">Deck</Text>
           </View>
@@ -180,21 +161,11 @@ const VaultRoute = ({ data }: { data: GridItem[] }) => {
             height: item.height,
           }}
         >
-          <Animated.View
-            style={{
-              flex: 1,
-              borderRadius: 16,
-              overflow: 'hidden',
-              backgroundColor: '#dcfce7',
-            }}
-            sharedTransitionTag={`moment-${item.id}`}
-          >
-            <Animated.Image
-              source={{ uri: item.imageUrl }}
-              style={{ flex: 1 }}
-              resizeMode="cover"
-            />
-          </Animated.View>
+          <Animated.Image
+            source={{ uri: item.imageUrl }}
+            className="flex-1 rounded-2xl overflow-hidden"
+            resizeMode="cover"
+          />
           <View className="absolute bottom-2 left-2 bg-green-600 px-2 py-1 rounded">
             <Text className="text-white text-xs font-medium">Vault</Text>
           </View>
