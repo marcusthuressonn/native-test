@@ -1,13 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { tokenCache } from '@clerk/clerk-expo/token-cache';
+import { ConvexReactClient } from 'convex/react';
+import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { colorScheme } from 'nativewind';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import './../global.css';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { PortalHost } from '@rn-primitives/portal';
+
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+  unsavedChangesWarning: false,
+});
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -17,13 +26,20 @@ export default function RootLayout() {
     return null;
   }
 
+  colorScheme.set('light');
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <ClerkProvider
+      tokenCache={tokenCache}
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
+      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+        <GestureHandlerRootView>
+          <Slot />
+          <StatusBar style="auto" />
+          <PortalHost />
+        </GestureHandlerRootView>
+      </ConvexProviderWithClerk>
+    </ClerkProvider>
   );
 }
